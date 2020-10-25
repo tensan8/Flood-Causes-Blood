@@ -1,0 +1,166 @@
+/*
+filename: Styles
+author: Alesandro Michael Ferdinand
+created: 24 October 2020
+last modified:
+description: index.html
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Staatliches&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+  color: white;
+}
+
+body{
+  background: #000000; /*Black*/
+}
+
+header{
+  position: relative;
+  width: 100%;
+  height: 100vh; /*vh -> view height*/
+  overflow: hidden;
+  background: #000000;
+}
+
+section{
+  padding: 3em;
+  text-align: justify;
+}
+
+section h1{
+  text-align: center;
+  color: maroon;
+  font-size: 5em;
+  font-family: 'Staatliches', sans-serif;
+}
+
+section p{
+  margin-bottom: 3em;
+  line-height: 2em;
+  text-indent: 3em;
+}
+
+footer h2{
+  text-align: center;
+  color: maroon;
+  font-size: 4em;
+  font-family: 'Staatliches', sans-serif;
+  margin-bottom: 0.5em;
+  clear: both;
+  padding-top: 3em;
+}
+
+footer a{
+  text-decoration: none;
+  font-family: "Courier New", sans-serif;
+}
+
+footer p{
+  font-family: "Courier New", sans-serif;
+  margin: 2em 3em;
+  text-align: center;
+}
+
+.footerLink{
+  text-align: center;
+  line-height: 3em;
+  font-size: 1.1em;
+}
+
+.socialMedia img{
+  width: 3em;
+  height: 3em;
+  margin: 3em;
+  margin-bottom: 2em;
+}
+
+.socialMedia{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+article img{
+  margin: 3em;
+  align: left;
+}
+
+article h2{
+  color: maroon;
+  font-size: 3em;
+  font-family: 'Staatliches', sans-serif;
+  padding-top: 1.1em;
+}
+
+article p{
+  margin-top: 0.6em;
+  margin-bottom: 3em;
+  line-height: 2em;
+  text-indent: 3em;
+  text-align: justify;
+  margin-right: 3em;
+}
+
+/*Button animation was learnt from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_buttons_animate1 */
+
+button{
+  background-color: #D35100;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1.5em;
+  transition: 0.7s;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 0.8em;
+  width: 20em;
+  height: 3em;
+  padding-left: 1.7em;
+}
+
+button span{
+  transition: 0.7s;
+}
+
+button span::after{
+  content: " >>";
+  position: relative;
+  opacity: 0;
+  right: -1em;
+  transition: 0.7s;
+}
+
+button:hover{
+  background-color: maroon;
+  transition: 0.7s;
+}
+
+button:hover span{
+  padding-right: 1.7em;
+}
+
+button:hover span::after{
+  opacity: 1;
+  right: 0em;
+}
+
+#secondMenu{
+  margin-top: 10em;
+  margin-left: 3em;
+}
+
+#secondMenu img{
+  height: 22.5em;
+}
+
+#thirdMenu{
+  margin-top: 10em;
+}
