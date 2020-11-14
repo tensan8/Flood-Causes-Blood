@@ -1,8 +1,14 @@
 function init(){
-  new Audio('sounds/MainSound.mp3').play();
-
+  music = new Audio('sounds/MainSound.mp3');
+  music.addEventListener('ended', function(){
+      this.currentTime = 0;
+      this.play();
+  }, false);
+  music.play();
+  
   var headerPhoto = document.getElementById('HeaderPic');
 
+  //Parallax effect
   window.addEventListener('scroll', function(){
     headerPhoto.style.opacity = 1 - window.pageYOffset/600;
     })
@@ -28,6 +34,25 @@ function init(){
         $('#firstMenu').fadeOut(500);
       }
     });
+
+    changePage();
+}
+
+function changePage(){
+  $(document).ready(function(){
+    //Fade in the page
+    $("body").hide();
+    $("body").fadeIn(2000);
+
+    //Fade out the whole body when the 'a' tag object is clicked
+    $('a').click(function(event){
+      event.preventDefault();
+      linklocation = this.href;
+      $('body').fadeOut(1000, function(){
+        document.location.href = linklocation;
+      });
+    });
+  });
 }
 
 window.onload = init;
@@ -40,4 +65,6 @@ window.onbeforeunload = function(){
 https://www.youtube.com/watch?v=WxWtAmZMSPE
 https://stackoverflow.com/questions/18347749/how-to-increase-opacity-of-an-image-when-scrolling
 https://stackoverflow.com/questions/13610638/loop-audio-with-javascript#:~:text=The%20audio%20element%20has%20a,to%20auto%2Dloop%20its%20playback.
+https://stackoverflow.com/questions/24425287/using-jquery-fadeout-for-page-transition
+https://stackoverflow.com/questions/23458981/jquery-redirect-fadeout-fadein
 */

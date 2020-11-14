@@ -1,0 +1,121 @@
+/*
+filename: Styles
+author: Alesandro Michael Ferdinand
+created: 11 November 2020
+last modified:
+description: timeline.html
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Staatliches&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+  color: white;
+}
+
+body{
+  background: #000000; /*Black*/
+}
+
+header{
+  position: relative;
+  width: 100%;
+  height: 100vh; /*vh -> view height*/
+  overflow: hidden;
+  background: #000000;
+}
+
+section{
+  padding: 3em;
+  text-align: justify;
+}
+
+h1 a{
+  text-align: center;
+  color: maroon;
+  font-size: 4em;
+  font-family: 'Staatliches', sans-serif;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  transition: 3s;
+}
+
+h1 a:hover{
+  color: red;
+}
+
+h2{
+  text-align: center;
+  color: #4D0000;
+  font-size: 4em;
+  font-family: 'Staatliches', sans-serif;
+}
+
+#year{
+  text-align: center;
+  color: #4D0000;
+  font-size: 4em;
+  font-family: 'Staatliches', sans-serif;
+}
+
+section p{
+  margin-bottom: 3em;
+  line-height: 2em;
+  text-indent: 3em;
+}
+
+footer h2{
+  text-align: center;
+  color: maroon;
+  font-size: 4em;
+  font-family: 'Staatliches', sans-serif;
+  margin-bottom: 0.5em;
+  clear: both;
+  padding-top: 3em;
+}
+
+footer a{
+  text-decoration: none;
+  font-family: "Courier New", sans-serif;
+}
+
+footer p{
+  font-family: "Courier New", sans-serif;
+  margin: 2em 3em;
+  text-align: center;
+}
+
+.footerLink{
+  text-align: center;
+  line-height: 3em;
+  font-size: 1.1em;
+}
+
+.socialMedia img{
+  width: 3em;
+  height: 3em;
+  margin: 3em;
+  margin-bottom: 2em;
+}
+
+.socialMedia{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+#chartarea{
+  margin-top: 15em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
