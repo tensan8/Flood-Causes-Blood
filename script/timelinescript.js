@@ -1,4 +1,11 @@
 function init(){
+    music = new Audio('sounds/TimelineSound.mp3');
+    music.addEventListener('ended', function(){
+        this.currentTime = 0;
+        this.play();
+    }, false);
+    music.play();
+
     changePage();
 
     var dataset = {};
@@ -88,7 +95,7 @@ function barChart(dataset){
         .style("font-family", "Noto Sans")
         .style("font-weight", "bold")
         .style("font-size", "1em")
-        .attr("transform", "translate(0, 575)")
+        .attr("transform", "translate(-1.1, 575)")
         .call(xAxis);
 }
 

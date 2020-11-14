@@ -1,4 +1,11 @@
 function init(){
+  music = new Audio('sounds/CausesSound.mp3');
+  music.addEventListener('ended', function(){
+      this.currentTime = 0;
+      this.play();
+  }, false);
+  music.play();
+
   changePage();
 
   var dataset;
@@ -79,26 +86,6 @@ function barChart(dataset){
                     })
                     .attr("height", y.bandwidth())
                     .attr("transform", 'translate(122,0)');
-  
-  /*var text = svg.append("g")
-                  .attr("fill", "white")
-                  .attr("text-anchor", "end")
-                  .attr("font-family", "Noto Sans")
-                  .attr("font-size", 12)
-                .selectAll("text")
-                .data(dataset)
-                .join("text")
-                  .attr("x", function(d){
-                    return x(d.CountMainCause);
-                  })
-                  .attr("y", function(d, i){
-                    return y(i) + y.bandwidth() / 2;
-                  })
-                  .attr("dy", "0.35em")
-                  .attr("dx", "9.9em")
-                  .text(function(d){
-                    return d.CountMainCause;
-                  })*/
 
   function zoomed(){
     var newScale = d3.event.transform.rescaleX(x);
