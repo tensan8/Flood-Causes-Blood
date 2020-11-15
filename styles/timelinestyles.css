@@ -58,6 +58,13 @@ h2{
   font-family: 'Staatliches', sans-serif;
 }
 
+h3{
+  text-align: center;
+  color: #4D0000;
+  font-size: 3em;
+  font-family: 'Staatliches', sans-serif;
+}
+
 #year{
   text-align: center;
   color: #4D0000;
@@ -68,7 +75,6 @@ h2{
 section p{
   margin-bottom: 3em;
   line-height: 2em;
-  text-indent: 3em;
 }
 
 footer h2{
@@ -78,7 +84,7 @@ footer h2{
   font-family: 'Staatliches', sans-serif;
   margin-bottom: 0.5em;
   clear: both;
-  padding-top: 3em;
+  padding-top: 2em;
 }
 
 footer a{
@@ -113,9 +119,41 @@ footer p{
 }
 
 #chartarea{
-  margin-top: 15em;
+  margin-top: 0.5em;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
+}
+
+#linechartarea{
+  margin-top: 10em;
+}
+
+#year{
+  width: 2em;
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  border: none;
+  transition: 2s;
+}
+
+#year:hover{
+  color: maroon;
+}
+
+/*Learnt from https://coder-coder.com/display-divs-side-by-side/#:~:text=To%20position%20the%20divs%20side,fit%20because%20we%20have%20two%20. */
+#secondpart{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#content{
+  margin-top: 8em;
+  margin-left: 1em;
+}
+
+#content > p{
+  margin-top: 1em;
 }

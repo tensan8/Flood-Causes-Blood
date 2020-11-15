@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles/timelinestyles.css"/>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
     <script src="script/timelinescript.js"></script>
   </head>
 
@@ -19,12 +20,27 @@
       <a href="index.html">Flood Causes Blood</a>
     </h1>
     <h2>Timeline</h2>
-    <h3 id="year"></h3>
+    <h3>Number of Floods For Each Year</h3>
+    <input type="text" id="year" value="1985" />
     <div id="chartarea">
       <p class="chart"></p>
       <br>
     </div>
-    <br>
+    <div id="secondpart">
+      <div id="linechartarea" align="left">
+        <p class="linechart"></p>
+      </div>
+      <div id="content">
+        <h3 id="contentheader">Total Number of Floods For Each Month From 1985 - 2020</h3>
+        <p>
+          The line graph beside show us the trend of the floods occurance for each month from 1985 until 2020.
+          As we can see, there is a fluctuation happens from January until April where the occurance of floods on these months
+          show a decreasing number then it increased again on the other month. The trend shows an increasing number starting from 
+          May until it reaches its peak on July. The occurance of floods will start to decrease after it reached its peak. The trend 
+          shows a downward trend from August until December which means that the floods will occur less frequent than the last month.
+        </p>
+      </div>
+    </div>
   </section>
 
   <footer>

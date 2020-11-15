@@ -98,9 +98,7 @@ function barChart(dataset){
         return barW;
       }
     });
-    /*text.attr("x", function(d){
-      return newScale(d.CountMainCause);
-    });*/
+
     xAxis.scale(newScale);
     axisG.call(xAxis);
   }
