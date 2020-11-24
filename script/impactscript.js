@@ -108,18 +108,18 @@ function barChart(dataset){
                 .attr("font-family", "Noto sans")
                 .attr("font-weight", "bold")
                 .attr("fill", "white")
-                .text(d['CountSeverity']);
+                .text(d['CountSeverity'] + " Floods");
     
-            d3.select(this)
-              .attr("opacity", 1);
+            d3.select(this).attr("opacity", 1);
 
-            d3.selectAll("use").attr("fill", function(d){
-                if ( ((d+1) * 70) < value ){
-                    return "maroon";
-                }else{
-                    return "darkslategray";
-                }
-            });
+            d3.selectAll("use")
+                .attr("fill", function(d){
+                    if ( ((d+1) * 70) < value ){
+                        return "maroon";
+                    }else{
+                        return "darkslategray";
+                    }
+                });
 
             changeDesc(hoveredBar);
         })

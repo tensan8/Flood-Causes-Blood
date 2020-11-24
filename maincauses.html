@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles/causesstyles.css"/>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.js"></script>
     <script src="script/causesscript.js"></script>
   </head>
 
@@ -19,17 +20,81 @@
       <a href="index.html">Flood Causes Blood</a>
     </h1>
     <h2>Main Causes</h2>
-    <div id="chartarea">
-      <p class="chart"></p>
-      <br>
+    <p id="note">Keep on the right side to scroll down</p>
+    <div id="container">
+      <div id="chartarea">
+        <p class="chart"></p>
+      </div>
+
+      <div class="content">
+        <div id="limit20">
+          <p>There were few floods that were caused by:</p>
+          <ul>
+            <li>High Tides</li>
+            <li>Avalanche</li>
+            <li>Tidal Surge</li>
+            <li>Landslide</li>
+            <li>Glacial Lake Outburst</li>
+            <li>Tsunami</li>
+            <li>Typhoon</li>
+            <li>Levee Failure</li>
+            <li>Storm Surge</li>
+            <li>Hurricane</li>
+            <li>Winter Storm</li>
+          </ul>
+          <br>
+          <br>
+          <p>Each cause that has been listed above had not cause more than 10 cases of floods counted from 1985 - 2020</p>
+        </div>
+        <div id="limit50">
+          <p>
+            Some events cause more cases compared to the previous ones. <span style="color: red;">Cyclone</span> caused around 22 cases so far 
+            while <span style="color: red;">Ice Jams</span> are recorded to cause more cases, which is 32 cases of floods from 1985-2020. 
+            <span style="color: red;">Rain and Snowmelts</span> caused more number of floods with 48 cases were recorded to be caused by this event.
+          </p>
+        </div>
+        <div id="limit200">
+          <p>
+            Several events are even causing more cases such as <span style="color: red;">79 cases</span> were caused by Snowmelt, 
+            <span style="color: red;">154 cases</span> were caused by Tropical Storm and <span style="color: red;">57 cases</span> 
+            were recorded as floods that were caused by Dam/Levy Break or Release.
+          </p>
+        </div>
+        <div id="limit600">
+          <p>
+            <span style="color: red;">More and more</span> floods are caused by the other issues and most of them are caused by 
+            <span style="color: red;">rain</span> such as <span style="color: red;">Torrential Rain</span> that has caused 539 cases so far, 
+            <span style="color: red;">Moonson Rain</span> with its 436 cases, <span style="color: red;">Tropical Cyclone</span> with 340 cases of floods 
+            while <span style="color: red;">Brief Torrential Rain</span> is recorded being able to cause 210 cases of floods from 1985 until 2020.
+          </p>
+        </div>
+        <div id="limit3000">
+          <p>
+            <strong><span style="color: red;">The Main Causes</span></strong> of floods that have been recorded is 
+          </p>
+          <p id="HeavyRain"><strong><span style="color: red;">Heavy Rain</span></strong></p>
+          <p>
+            Unexpectedly, there were around <strong><span style="color: red;">2998 cases</span></strong> that have been recorded that were caused by Heavy Rain.
+            We cannot do a lot of thing to control the intensity of a rain, but since we have known that heavy rain is the main cause of most floods in that have been happened, 
+            we need to pay extra attention on our waterways to make sure that the water will not overflow when a heavy is coming and we also need to prepare our environment to 
+            store the water volume that will be brought by the heavy rain by doing Reforestation.
+          </p>
+        </div>
+        <div id="dummy">
+          <p></p>
+        </div>
+      </div>
     </div>
-    <br>
+    <h3>Let us save people and save the world from floods. Let us <span id="endingMessage">be the changes.</span></h3>
+    <img src="images/CauseEnd.jpg" id="CauseEnd" alt="Flood in China"/>
   </section>
 
   <footer>
     <div class="footerLink">
       <h2>Credit</h2>
       <a href="https://www.youtube.com/watch?v=dj9eU4kL61Y">[Music] Declaration - Johannes Bornlöf.</a>
+      <br>
+      <a href="https://www.insurancejournal.com/news/international/2020/07/13/575248.htm">[Image] China Braces for Continuing Floods in One of Worst Rainfall Seasons on Record</a>
       <br>
       <a href="https://www.flaticon.com/">[Icon] Instagram / Facebook</a>
     </div>

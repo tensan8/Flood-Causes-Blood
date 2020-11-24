@@ -19,6 +19,7 @@ description: MainCauses.html
 
 body{
   background: #000000; /*Black*/
+  scroll-behavior: smooth;
 }
 
 header{
@@ -58,10 +59,17 @@ h2{
   font-family: 'Staatliches', sans-serif;
 }
 
+h3{
+  text-align: center;
+  color: #4D0000;
+  font-size: 2em;
+  font-family: 'Staatliches', sans-serif;
+  margin-top: 5em;
+}
+
 section p{
   margin-bottom: 3em;
   line-height: 2em;
-  text-indent: 3em;
 }
 
 footer h2{
@@ -94,7 +102,7 @@ footer p{
 .socialMedia img{
   width: 3em;
   height: 3em;
-  margin: 3em;
+  margin: 1em;
   margin-bottom: 2em;
 }
 
@@ -108,4 +116,76 @@ footer p{
 #chartarea{
   margin-top: 5em;
   margin-left: -3em;
+  position: sticky;
+  top: 6em;
+}
+
+.content{
+  width: 30em;
+}
+
+.content > div {
+  padding-top: 40em;
+  position: relative;
+  left: 47em;
+}
+
+ul{
+  padding-left: 2em;
+}
+
+#limit20{
+  padding-top: 5em;
+}
+
+.tooltip{
+  position: absolute;
+  display: none;
+  width: 6em;
+  height: 2em;
+  background: none repeat scroll 0 0 #d00000;
+  border: 0.2em solid black;
+  text-align: center;
+  padding: auto;
+  color: black;
+  font-size: 14px;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+#note{
+  text-align: center;
+  margin-left: -0.3em;
+  color: gray;
+}
+
+rect{
+  transition: ease-in-out;
+  transition-duration: 0.5s;
+}
+
+rect:hover{
+  fill: red;
+  transition: ease-in-out;
+  transition-duration: 0.5s;
+}
+
+section > img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 0 auto;
+  padding-top: 1em;
+}
+
+#HeavyRain{
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bolder;
+  margin-bottom: 1.5em;
+}
+
+#endingMessage{
+  color: rgb(156, 0, 0);
+  font-family: "Staatliches", sans-serif;
 }

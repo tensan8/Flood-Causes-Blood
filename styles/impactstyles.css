@@ -19,6 +19,7 @@ description: severity.html
 
 body{
   background: #000000; /*Black*/
+  scroll-behavior: smooth;
 }
 
 header{
@@ -111,7 +112,7 @@ footer p{
 .socialMedia img{
   width: 3em;
   height: 3em;
-  margin: 3em;
+  margin: 1em;
   margin-bottom: 2em;
 }
 
@@ -140,4 +141,15 @@ footer p{
 #pictoGrid{
   transform-origin: 4em 4em;
   transform: scale(3);
+}
+
+#note{
+  text-align: center;
+  margin-left: -0.3em;
+  color: gray;
+}
+
+rect{
+  transition: ease-in-out;
+  transition-duration: 500ms;
 }

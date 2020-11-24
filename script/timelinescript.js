@@ -92,8 +92,7 @@ function barChart(dataset, rawData){
                     }
                 });
     
-            d3.select(this)
-              .attr("opacity", 1);
+            d3.select(this).attr("opacity", 1);
         })
     
         //If the bar is not hovered, remove the label and reset the color of the bar

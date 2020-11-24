@@ -19,6 +19,7 @@ description: index.html
 
 body{
   background: #000000; /*Black*/
+  scroll-behavior: smooth;
 }
 
 header{
@@ -77,7 +78,7 @@ footer p{
 .socialMedia img{
   width: 3em;
   height: 3em;
-  margin: 3em;
+  margin: 1em;
   margin-bottom: 2em;
 }
 
