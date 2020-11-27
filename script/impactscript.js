@@ -1,4 +1,5 @@
 function init(){
+    //Play the music
     music = new Audio('sounds/SevereSound.mp3');
     music.addEventListener('ended', function(){
         this.currentTime = 0;
@@ -6,8 +7,10 @@ function init(){
     }, false);
     music.play();
 
+    //Call the fade animation that will appear whenever we move between pages
     changePage();
 
+    //Load the data
     var dataset = {};
 
     d3.csv("data/Severe.csv").then(function(data){
@@ -17,11 +20,13 @@ function init(){
 }
   
 function barChart(dataset){
+    //Initialize the sizes
     var w = 600;
     var h = 600;
     var padding = 10;
     var marginBottom = 30;
 
+    //Initialize the data that will be used for each axis
     var xScale = d3.scaleBand()
                     .domain(d3.range(dataset.length))
                     .rangeRound([padding, w-padding])
@@ -33,22 +38,26 @@ function barChart(dataset){
                     })])
                     .rangeRound([0,110]);
 
+    //Draw the SVG for the bar chart
     var svg = d3.select(".chart")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
 
+    //Draw the SVG for the pictograph
     var svgPicto = d3.select(".pictogram")
                         .append("svg")
                         .attr("width", w)
                         .attr("height", h);
 
+    //Initialize the X-Axis
     var xAxis = d3.axisBottom()
                     .tickFormat(function(d, i){
                         return dataset[i].SeverityCategory;
                     })
                     .scale(xScale);
                 
+    //Draw the icon that will be used in the pictograph in the form of path
     svgPicto.append("defs")
             .append("g")
             .attr("id", "icon")
@@ -56,6 +65,7 @@ function barChart(dataset){
             .append("path")
                 .attr("d", "M10.943,13.822c0-0.234-0.19-0.425-0.425-0.425c-0.117,0-0.224,0.048-0.3,0.125L7.67,16.07c-0.077,0.077-0.125,0.184-0.125,0.301c0,0.234,0.19,0.424,0.425,0.424h1.523L7.67,18.619c-0.077,0.077-0.125,0.183-0.125,0.3c0,0.235,0.19,0.425,0.425,0.425c0.117,0,0.223-0.047,0.3-0.124l2.548-2.549c0.077-0.076,0.125-0.183,0.125-0.3c0-0.235-0.19-0.425-0.425-0.425h-0.001H8.996l1.823-1.823C10.896,14.046,10.943,13.939,10.943,13.822 M16.883,5.014c0.002-0.037,0.006-0.073,0.006-0.11c0-1.407-1.141-2.548-2.548-2.548c-0.642,0-1.228,0.24-1.676,0.631c-0.906-1.4-2.477-2.33-4.27-2.33c-2.559,0-4.669,1.886-5.035,4.342C1.864,5.354,0.75,6.696,0.75,8.301c0,1.877,1.521,3.398,3.397,3.398H16.04c1.876,0,3.397-1.521,3.397-3.398C19.438,6.717,18.351,5.389,16.883,5.014 M16.04,10.849H4.147c-1.405,0-2.548-1.143-2.548-2.548c0-1.184,0.804-2.201,1.957-2.476c0.337-0.08,0.593-0.358,0.644-0.701c0.306-2.063,2.11-3.618,4.194-3.618c1.44,0,2.345,0.301,3.132,1.518c0.135,0.207,0.776,0.77,1.021,0.804c0.039,0.006,0.117,0.008,0.117,0.008c0.205,0,0.403-0.073,0.56-0.21c0.311-0.271,0.707-0.421,1.116-0.421c0.937,0,1.699,0.762,1.698,1.708l-0.005,0.062c-0.018,0.402,0.249,0.762,0.639,0.861c1.128,0.289,1.915,1.303,1.915,2.465C18.588,9.706,17.445,10.849,16.04,10.849");
 
+    //Draw the pictograph
     svgPicto.append("g")
             .attr("id", "pictoGrid")
             .selectAll("use")
@@ -94,12 +104,14 @@ function barChart(dataset){
             return yScale(d['CountSeverity']);
         })
         .attr("transform", "translate(-9, -25)")
+        //Hovering a bar
         .on("mouseover", function(d){
             var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.bandwidth()/2;
             var yPosition = parseFloat(d3.select(this).attr("y")) + 10;
-            var value = d['CountSeverity'];
-            var hoveredBar = d['SeverityCategory']
+            var value = d['CountSeverity']; //It will be used to determine how many icons that will be highlighted
+            var hoveredBar = d['SeverityCategory'] //It will determine which detail that need to be shown
     
+            //Show the real value of the bar
             svg.append("text")
                 .attr("id", "tooltip")
                 .attr("x", xPosition - 13)
@@ -110,8 +122,9 @@ function barChart(dataset){
                 .attr("fill", "white")
                 .text(d['CountSeverity'] + " Floods");
     
-            d3.select(this).attr("opacity", 1);
+            d3.select(this).attr("opacity", 1); //Highlight the bar that is being hovered
 
+            //Highlight the pictograph accordingly
             d3.selectAll("use")
                 .attr("fill", function(d){
                     if ( ((d+1) * 70) < value ){
@@ -121,16 +134,18 @@ function barChart(dataset){
                     }
                 });
 
+            //Show the appropriate detail about the hovered bar
             changeDesc(hoveredBar);
         })
     
-        //If the bar is not hovered, remove the label and reset the color of the bar
+        //If the bar is not hovered, remove the text, reset the color of the bar and reset the color of the pictograph too
         .on("mouseout", function(d){
             d3.select("#tooltip").remove();
             d3.select(this).attr("opacity", 0.5);
             d3.selectAll("use").attr("fill", "darkslategray");
         });
-
+    
+    //Draw the X-Axis of the bar chart
     svg.append("g")
         .attr("class", "axis")
         .style("font-family", "Noto Sans")
@@ -139,6 +154,7 @@ function barChart(dataset){
         .attr("transform", "translate(-10, " + (h - marginBottom - 25) + ")")
         .call(xAxis);
 
+    //Draw the X-Axis label
     svg.append("text")
         .style("text-anchor", "middle")
         .style("font-family", "Noto Sans")
@@ -149,6 +165,7 @@ function barChart(dataset){
         .text("Severity Level");
 }
 
+//Show the appropriate detail according to the hovered bar
 function changeDesc(hoveredBar){
     if(hoveredBar == 1){
         document.getElementById("hoveredSev").innerHTML = "Severity Level 1";
@@ -170,6 +187,7 @@ function changeDesc(hoveredBar){
     }
 }
 
+//It will play the fade animation that will appear when we move between pages
 function changePage(){
     $(document).ready(function(){
         //Fade in the page
@@ -187,8 +205,10 @@ function changePage(){
     });
 }
 
+//Call the init function when the window is loading
 window.onload = init;
 
+//Make sure that we always start from the top of the page
 window.onbeforeunload = function(){
     window.scrollTo(0, 0);
 }

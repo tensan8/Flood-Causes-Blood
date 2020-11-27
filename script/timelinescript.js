@@ -1,4 +1,5 @@
 function init(){
+    //Play the music
     music = new Audio('sounds/TimelineSound.mp3');
     music.addEventListener('ended', function(){
         this.currentTime = 0;
@@ -6,10 +7,13 @@ function init(){
     }, false);
     music.play();
 
+    //Call the fade animation that will appear whenever we move between pages
     changePage();
 
+    //Set the year into 1985
     document.getElementById("year").value = 1985;
 
+    //Load the dataset for the bar chart
     var dataset = {};
 
     d3.csv("data/DateRecap.csv").then(function(rows){
@@ -20,17 +24,21 @@ function init(){
         barChart(dataset[document.getElementById("year").value], dataset);
     });
 
+    //Load the dataset for the line chart
     d3.csv("data/MonthTotal.csv").then(function(data){
         lineDataset = data;
         lineChart(lineDataset);
     })
 }
-  
+
+//Plot the bar chart
 function barChart(dataset, rawData){
+    //Initialize the sizes
     var w = 700;
     var h = 500;
     var padding = 15;
 
+    //Initialize the data that will be used for each axis
     var xScale = d3.scaleBand()
                   .domain(d3.range(dataset.length))
                   .rangeRound([padding, w-padding])
@@ -40,16 +48,22 @@ function barChart(dataset, rawData){
                     .domain([1,40])
                     .rangeRound([padding,h-padding]);
 
+    //Draw the SVG
     var svg = d3.select(".chart")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
 
+    //Change the year attribute
     scrollYear(svg, rawData);
+
+    //Lock the scroll when the cursor is hovering the year
     lockScroll();
 
+    //Hard-coded the month that will be used as the X-Axis
     var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
 
+    //Initialize the X-Axis
     var xAxis = d3.axisBottom()
                     .tickFormat(function(d, i){
                         return month[i];
@@ -74,10 +88,12 @@ function barChart(dataset, rawData){
             return yScale(d);
         })
         .attr("transform", "translate(0, -25)")
+        //Hovering a bar
         .on("mouseover", function(d){
             var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.bandwidth()/2;
             var yPosition = parseFloat(d3.select(this).attr("y")) + 10;
-    
+            
+            //Show the real value of the bar
             svg.append("text")
                 .attr("id", "tooltip")
                 .attr("x", xPosition)
@@ -92,7 +108,7 @@ function barChart(dataset, rawData){
                     }
                 });
     
-            d3.select(this).attr("opacity", 1);
+            d3.select(this).attr("opacity", 1); //Highlight the bar
         })
     
         //If the bar is not hovered, remove the label and reset the color of the bar
@@ -101,6 +117,7 @@ function barChart(dataset, rawData){
             d3.select(this).attr("opacity", 0.5);
         });
 
+    //Draw the X-Axis
     svg.append("g")
         .attr("class", "axis")
         .style("font-family", "Noto Sans")
@@ -109,12 +126,15 @@ function barChart(dataset, rawData){
         .attr("transform", "translate(-1.1, 475)")
         .call(xAxis);
 
+    //Change the year value accordingly
     function scrollYear(svg, dataset){
         $(function(){
-            $("#year").bind("mousewheel", function(event, delta){
+            $("#year").bind("mousewheel", function(event, delta){ //Take the year component
                 if(delta == 1){ //Scroll Up
-                    if(parseInt(this.value) < 2020){
-                        this.value = parseInt(this.value) + 1;
+                    if(parseInt(this.value) < 2020){ //Should be more than 2020
+                        this.value = parseInt(this.value) + 1; //Increase the year
+
+                        //Update the bar chart
                         svg.selectAll("rect")
                             .data(dataset[document.getElementById("year").value])
                             .attr("y", function(d){
@@ -125,8 +145,10 @@ function barChart(dataset, rawData){
                             });
                     }
                 }else{ //-1 or Scroll Down
-                    if(parseInt(this.value) > 1985){
-                        this.value = parseInt(this.value) - 1;
+                    if(parseInt(this.value) > 1985){ //Should be less than 1985
+                        this.value = parseInt(this.value) - 1; //Decrease the year
+
+                        //Update the bar chart
                         svg.selectAll("rect")
                             .data(dataset[document.getElementById("year").value])
                             .attr("y", function(d){
@@ -142,11 +164,14 @@ function barChart(dataset, rawData){
     }
 }
 
+//Plot the line chart
 function lineChart(dataset){
+    //Initialize the sizes
     var w = 650;
     var h = 500;
     var padding = 25;
 
+    //Initialize the data that will be used for each axis
     var xScale = d3.scaleBand()
                     .domain(dataset.map(function(d){
                         return d.Month;
@@ -157,17 +182,21 @@ function lineChart(dataset){
                     .domain([0, 700])
                     .range([h - padding, 0]);
   
+    //Initialize the line
     line = d3.line()
               .x(function(d) { return xScale(d.Month); })
               .y(function(d) { return yScale(d.Total); });
-  
+
+    //Draw the SVG
     var svg = d3.select(".linechart")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
-  
+
+    //Hard-coded the month that will be used as the X-Axis
     var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
 
+    //Initiliaze the axis
     var xAxis = d3.axisBottom()
                     .tickFormat(function(d, i){
                         return month[i];
@@ -178,7 +207,7 @@ function lineChart(dataset){
                 .ticks(10)
                 .scale(yScale);
         
-    //Insert the point that will be connected by line
+    //Draw the line
     svg.append("path")
         .datum(dataset, function(d){
             return d.Total;
@@ -189,8 +218,9 @@ function lineChart(dataset){
         .style("stroke-width", "0.3em")
         .attr("transform", "translate(" + (padding)+ ",0)");
 
-    var circleCount = 0;
+    var circleCount = 0; //It will be used to assign unique id for each node
 
+    //Draw the nodes
     svg.selectAll("line-circle")
         .data(dataset)
         .enter()
@@ -210,12 +240,15 @@ function lineChart(dataset){
         .attr("transform", "translate(25,0)")
         .attr("stroke", "darkred")
         .style("stroke-width", "0.15em")
+        //Hovering the node
         .on("mouseover", function(d){
+            //Change the color of the node
             d3.select(this)
                 .transition()
                 .duration(1000)
                 .style("fill", "black");
 
+            //Show the real value of the node
             svg.selectAll("#tooltip")
                 .data([d])
                 .enter()
@@ -234,7 +267,7 @@ function lineChart(dataset){
                 .style("font-family", "Noto Sans")
                 .style("font-size", "0.8em");
         })
-        .on("mouseout", function(d){
+        .on("mouseout", function(d){ //Reset the color of the node and remove the tooltip
             d3.select(this)
                 .transition()
                 .duration(1000)
@@ -261,18 +294,21 @@ function lineChart(dataset){
         .style("font-size", "0.6em");
 }
 
+//It will prevent the user from scrolling through the page whenever the year element is hovered
 function lockScroll(){
     $("#year").hover(function(){
+        //Take the current X and Y position of the page and tell the window to keep on that position
         var X = window.scrollX;
         var Y = window.scrollY;
         window.onscroll = function(){
             window.scrollTo(X, Y);
         };
     }, function(){
-        window.onscroll = function(){};
+        window.onscroll = function(){}; //Can scroll the window if the cursor is not hovering the svg element
     });
 }
 
+//It will play the fade animation that will appear when we move between pages
 function changePage(){
     $(document).ready(function(){
         //Fade in the page
@@ -290,8 +326,10 @@ function changePage(){
     });
 }
 
+//Call the init function when the window is loading
 window.onload = init;
 
+//Make sure that we always start from the top of the page
 window.onbeforeunload = function(){
     window.scrollTo(0, 0);
 }

@@ -1,4 +1,5 @@
 function init(){
+  //Play the music
   music = new Audio('sounds/MainSound.mp3');
   music.addEventListener('ended', function(){
       this.currentTime = 0;
@@ -6,6 +7,7 @@ function init(){
   }, false);
   music.play();
   
+  //Get the header photo
   var headerPhoto = document.getElementById('HeaderPic');
 
   //Parallax effect
@@ -35,9 +37,11 @@ function init(){
       }
     });
 
+    //Call the fade animation that will appear whenever we move between pages
     changePage();
 }
 
+//It will play the fade animation that will appear when we move between pages
 function changePage(){
   $(document).ready(function(){
     //Fade in the page
@@ -55,8 +59,10 @@ function changePage(){
   });
 }
 
+//Call the init function when the window is loading
 window.onload = init;
 
+//Make sure that we always start from the top of the page
 window.onbeforeunload = function(){
   window.scrollTo(0, 0);
 }

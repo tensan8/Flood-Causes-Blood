@@ -1,4 +1,5 @@
 function init(){
+  //Play the song
   music = new Audio('sounds/CausesSound.mp3');
   music.addEventListener('ended', function(){
       this.currentTime = 0;
@@ -6,8 +7,10 @@ function init(){
   }, false);
   music.play();
 
+  //Play the fade transition when we want to move between pages
   changePage();
 
+  //Load the data
   var dataset;
 
   d3.csv("data/FloodData.csv").then(function(data){
@@ -17,15 +20,18 @@ function init(){
 }
 
 function barChart(dataset){
+  //Specify the size
   var w = 700;
   var h = 500;
   var padding = 20;
 
+  //Make the SVG
   var svg = d3.select(".chart")
               .append("svg")
               .attr("width", w)
               .attr("height", h);
 
+  //Specify the different domains that will be used in the scrolly-telling feature
   var limit20 = d3.scaleLinear()
                   .domain([0, 23]).nice()
                   .range([padding, w - padding]);
@@ -48,11 +54,13 @@ function barChart(dataset){
 
   var currentLimit = limit20;
 
+  //Specify the data that will be used as the Y-Axis
   var y = d3.scaleBand()
             .domain(d3.range(dataset.length))
             .rangeRound([h - padding, padding])
             .padding(0.2);
 
+  //Initialize the Axis
   var xAxis = d3.axisTop()
                 .ticks(10)
                 .scale(currentLimit);
@@ -63,6 +71,7 @@ function barChart(dataset){
                 })
                 .scale(y);
 
+  //Draw the axis
   svg.append("g")
       .attr("class", "axis")
       .style("font-family", "Noto Sans")
@@ -79,13 +88,16 @@ function barChart(dataset){
       .attr("transform", 'translate(140,0)')
       .call(yAxis);
 
+  //Initialize the tooltip
   var tooltip = d3.select("section")
                   .append("div")
                   .attr("class", "tooltip")
                   .style("opacity", 0);
-
+  
+  //Call the function to lock the scroll whenever we are hovering a certain component in the website
   lockScroll();
 
+  //Draw the barchart
   svg.selectAll("rect")
       .data(dataset)
       .enter()
@@ -101,6 +113,7 @@ function barChart(dataset){
       })
       .attr("height", y.bandwidth())
       .attr("transform", 'translate(122,0)')
+      //Hovering the bar
       .on("mouseover", function(d){
         tooltip.style("opacity", 1);
       })
@@ -114,20 +127,23 @@ function barChart(dataset){
         tooltip.style("display", "none");
       });
   
+  //It will change the graph according to the div section that is being shown on the screen
   function changeGraph(id, newLimit, prevLimit){
-    var speed = 1000;
+    var speed = 1000; //The transition duration speed
     return new Waypoint({
-      element: document.getElementById(id),
-      handler: function(direction){
+      element: document.getElementById(id), //The div id
+      handler: function(direction){ //Detect the mouse direction
         if(direction == 'down'){
-          currentLimit = newLimit;
+          currentLimit = newLimit; //Make the bar chart to use the new limit if scrolling down
+          //Update the bar chart
           svg.selectAll("rect")
               .transition()
               .duration(speed)
               .attr("width", function(d){
                 return currentLimit(d.CountMainCause)-22;
               });
-
+          
+          //Update the X-Axis
           xAxis = d3.axisTop()
                     .ticks(10)
                     .scale(currentLimit);
@@ -139,7 +155,8 @@ function barChart(dataset){
               .call(xAxis);
 
         }else{
-          currentLimit = prevLimit;
+          currentLimit = prevLimit; //Make the bar chart to use the previous limit if scrolling up
+          //Update the bar chart
           svg.selectAll("rect")
               .transition()
               .duration(speed)
@@ -148,6 +165,7 @@ function barChart(dataset){
                 return currentLimit(d.CountMainCause)-22;
               });
 
+          //Update the X-Axis
           xAxis = d3.axisTop()
                     .ticks(10)
                     .scale(currentLimit);
@@ -162,6 +180,7 @@ function barChart(dataset){
     })
   };
 
+  //Initialize the div and their behaviour in term of the new limit and the previous limit
   new changeGraph('limit20', limit20, limit20);
   new changeGraph('limit50', limit50, limit20);
   new changeGraph('limit200', limit200, limit50);
@@ -169,18 +188,21 @@ function barChart(dataset){
   new changeGraph('limit3000', limit3000, limit600);
 }
 
+//It will prevent the user from scrolling through the page whenever the svg element is hovered
 function lockScroll(){
   $("svg").hover(function(){
+      //Take the current X and Y position of the page and tell the window to keep on that position
       var X = window.scrollX;
       var Y = window.scrollY;
       window.onscroll = function(){
           window.scrollTo(X, Y);
       };
   }, function(){
-      window.onscroll = function(){};
+      window.onscroll = function(){}; //Can scroll the window if the cursor is not hovering the svg element
   });
 }
 
+//It will play the fade animation that will appear when we move between pages
 function changePage(){
   $(document).ready(function(){
     //Fade in the page
@@ -198,8 +220,10 @@ function changePage(){
   });
 }
 
+//Call the init function when the window is loading
 window.onload = init;
 
+//Make sure that we always start from the top of the page
 window.onbeforeunload = function(){
   window.scrollTo(0, 0);
 }
